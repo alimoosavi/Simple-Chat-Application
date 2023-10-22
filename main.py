@@ -1,5 +1,5 @@
 import schemas
-import services as crud
+import services
 
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
@@ -10,19 +10,21 @@ app = FastAPI()
 
 @app.get("/interaction/", response_model=list[schemas.Interaction])
 def get_interactions(db: Session = Depends(get_db)):
-    return crud.get_interactions(db)
+    return services.get_interactions(db)
 
 
 @app.post("/interaction/", response_model=schemas.Interaction)
 def create_interaction(db: Session = Depends(get_db)):
-    return crud.create_interaction(db)
+    return services.create_interaction(db)
 
 
-@app.post("/respond/{interaction_id}/")
-def respond_message(interaction_id: str, message_create: schemas.MessageCreate, db: Session = Depends(get_db)):
-    if not crud.exists_interaction(db, interaction_id):
+@app.post("/respond/{interaction_id}/", response_model=schemas.Message)
+def respond_message(interaction_id: str,
+                    message_create: schemas.MessageCreate,
+                    db: Session = Depends(get_db)):
+    if not services.exists_interaction(db, interaction_id):
         raise HTTPException(status_code=404, detail='Interaction Id not found!')
-    crud.respond_message(db=db, interaction_id=interaction_id, message_create=message_create)
+    return services.respond_message(db=db, interaction_id=interaction_id, human_message_create=message_create)
 
 
 @app.on_event("startup")

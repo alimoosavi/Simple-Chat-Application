@@ -10,7 +10,7 @@ def get_session_messages(db: Session, interaction_id: str):
     return db.query(Interaction).filter(Interaction.id == interaction_id).first().messages
 
 
-def generate_ai_response(db: Session, interaction_id: str, content: str):
+def generate_ai_response(db: Session, interaction_id: str, content: str) -> str:
     user_message = {
         "role": "user",
         "content": content
@@ -23,5 +23,5 @@ def generate_ai_response(db: Session, interaction_id: str, content: str):
                                         frequency_penalty=0,
                                         presence_penalty=0,
                                         max_tokens=1000)
-    ai_message = resp.get('choices')[0].get('message')
-    messages.append(ai_message)
+
+    return resp.get('choices')[0].get('message').get('content')

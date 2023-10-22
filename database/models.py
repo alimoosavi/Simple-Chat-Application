@@ -16,7 +16,7 @@ class Interaction(Base):
     messages = relationship("Message", back_populates="interaction")
 
 
-class MessageStatus(PythonEnum):
+class MessageRole(PythonEnum):
     SYSTEM = 'system'
     HUMAN = 'human'
     AI = 'ai'
@@ -29,5 +29,5 @@ class Message(Base):
     interaction_id = Column(String, ForeignKey('interactions.id'))
     interaction = relationship("Interaction", back_populates="messages")
     created_at = Column(DateTime, default=datetime.now())
-    role = Column(Enum(MessageStatus))
+    role = Column(Enum(MessageRole))
     content = Column(String)

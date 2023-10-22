@@ -1,13 +1,14 @@
 from pydantic import BaseModel
 from datetime import datetime
 from typing import List, Union
-from database.models import MessageStatus
+from database.models import MessageRole
 
 
 class Message(BaseModel):
     id: str
+    interaction_id: str
     created_at: datetime
-    role: MessageStatus
+    role: MessageRole
     content: str
 
     class Config:
