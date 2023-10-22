@@ -7,4 +7,4 @@ DATABASE_NAME = os.environ.get("DATABASE_NAME", "chat-application")
 DATABASE_USER = os.environ.get("DATABASE_USER", "postgres")
 DATABASE_PASSWORD = os.environ.get("DATABASE_PASSWORD", "postgres")
 
-GSPREAD_SA_FILENAME = "~/.config/gspread/service_account.json"
+OPEN_AI_API_KEY = os.environ.get("OPEN_AI_API_KEY", "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")

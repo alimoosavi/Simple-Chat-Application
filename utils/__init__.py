@@ -1,5 +1,1 @@
-import uuid
-
-
-def generate_random_str():
-    return str(uuid.uuid4())
+from .random_str import generate_random_str

@@ -14,6 +14,10 @@ class Message(BaseModel):
         orm_mode = True
 
 
+class MessageCreate(BaseModel):
+    content: str
+
+
 class Interaction(BaseModel):
     id: str
     created_at: datetime
@@ -22,7 +26,3 @@ class Interaction(BaseModel):
 
     class Config:
         orm_mode = True
-
-
-class InteractionCreate(BaseModel):
-    pass

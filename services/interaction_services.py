@@ -7,6 +7,10 @@ def get_interactions(db: Session):
     return db.query(Interaction).all()
 
 
+def exists_interaction(db: Session, interaction_id: str):
+    return db.query(Interaction).filter(Interaction.id == interaction_id).first() is not None
+
+
 def create_interaction(db: Session):
     db_interaction = Interaction(id=generate_random_str())
     db.add(db_interaction)
