@@ -1,0 +1,44 @@
+services:
+  db:
+    image: postgres:15.3-alpine
+    container_name: chat-app-db
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+    restart: always
+    environment:
+      POSTGRES_DB: chat-application
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5433:5432
+#    networks:
+#      - chat-app-db-network
+
+  redis:
+    image: redis:7.0-alpine
+    container_name: chat-app-redis
+    ports:
+      - 6382:6379
+    restart: unless-stopped
+#    networks:
+#      - chat-app-db-network
+
+  chat-app:
+    build:
+      context: "."
+      dockerfile: "Dockerfile"
+    container_name: chat-app-back
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+      - redis
+volumes:
+  pgdata:
+  chat-app-pgadmin:
+
+#networks:
+#  chat-app-db-network:
+#  chat-app-back-network:
