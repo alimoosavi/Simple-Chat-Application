@@ -18,8 +18,8 @@ class Interaction(Base):
 
 class MessageRole(PythonEnum):
     SYSTEM = 'system'
-    HUMAN = 'human'
-    AI = 'ai'
+    HUMAN = 'user'
+    AI = 'assistant'
 
 
 class Message(Base):
