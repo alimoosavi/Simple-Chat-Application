@@ -22,6 +22,7 @@ You have to notice that chat-app service which will be our fast-api server will 
 
 ### Usage
 I have provided a postman collection beside the project , but in this section we want to have an overview of our REST-API endpoints.
+Before starting to use the APIS, you have to make a ```.env``` file inside the project directory. We created a .env.sample file for you.
 
 - Create Interaction: By calling this endpoint you will create a new interaction by making a Post request to this endpoint: ```http://localhost:8000/interaction/```.
 The output of this api will include an Id which will be used in the next APIs.
