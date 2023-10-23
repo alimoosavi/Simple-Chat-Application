@@ -11,17 +11,7 @@ services:
       POSTGRES_PASSWORD: postgres
     ports:
       - 5433:5432
-#    networks:
-#      - chat-app-db-network
 
-  redis:
-    image: redis:7.0-alpine
-    container_name: chat-app-redis
-    ports:
-      - 6382:6379
-    restart: unless-stopped
-#    networks:
-#      - chat-app-db-network
 
   chat-app:
     build:
@@ -34,11 +24,7 @@ services:
       - ./.env
     depends_on:
       - db
-      - redis
+
 volumes:
   pgdata:
   chat-app-pgadmin:
-
-#networks:
-#  chat-app-db-network:
-#  chat-app-back-network:
