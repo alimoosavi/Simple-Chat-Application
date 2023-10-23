@@ -1,0 +1,101 @@
+{
+	"info": {
+		"_postman_id": "0b0a064c-c7b8-4c70-b1a4-de5445de5fe4",
+		"name": "Chat-App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Interaction",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/interaction/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"interaction",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Interactions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/interaction/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"interaction",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Respond Message",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"content\": \"Hello\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/message/respond/de211903-a403-4dd6-b652-bb31d76447e0/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"message",
+						"respond",
+						"de211903-a403-4dd6-b652-bb31d76447e0",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Messages of an Interaction",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/message/4d5cb2fc-f663-4fd9-a6bd-7e6a5134976d/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"message",
+						"4d5cb2fc-f663-4fd9-a6bd-7e6a5134976d",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
