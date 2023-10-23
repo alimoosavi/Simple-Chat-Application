@@ -1,16 +1,20 @@
 import schemas
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Union
 from database.models import Message, MessageRole
-from .ai_service import generate_ai_response
+from .ai_service import generate_ai_response, ChatGPTException
 from utils import generate_random_str
 from datetime import datetime
 
 
-def respond_message(db: Session, interaction_id: str, human_message_create: schemas.MessageCreate) -> Message:
-    ai_content = generate_ai_response(db=db,
-                                      interaction_id=interaction_id,
-                                      content=human_message_create.content)
+def respond_message(db: Session, interaction_id: str, human_message_create: schemas.MessageCreate) -> \
+        Union[Message | None]:
+    try:
+        ai_content = generate_ai_response(db=db,
+                                          interaction_id=interaction_id,
+                                          content=human_message_create.content)
+    except ChatGPTException:
+        return None
     human_message = Message(id=generate_random_str(),
                             content=human_message_create.content,
                             role=MessageRole.HUMAN,

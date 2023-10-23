@@ -24,6 +24,10 @@ OPEN_AI_CHAT_CONFIG = {
 }
 
 
+class ChatGPTException(Exception):
+    pass
+
+
 def get_session_messages(db: Session, interaction_id: str) -> List[schemas.Message]:
     db_messages = db.query(Interaction).filter(Interaction.id == interaction_id).first().messages
 
@@ -43,7 +47,9 @@ def generate_ai_response(db: Session, interaction_id: str, content: str) -> str:
         "content": content
     }
     messages = [*previous_messages, user_message]
-    resp = openai.ChatCompletion.create(messages=messages,
-                                        **OPEN_AI_CHAT_CONFIG)
-
-    return resp.get('choices')[0].get('message').get('content')
+    try:
+        resp = openai.ChatCompletion.create(messages=messages,
+                                            **OPEN_AI_CHAT_CONFIG)
+        return resp.get('choices')[0].get('message').get('content')
+    except Exception:
+        raise ChatGPTException()
