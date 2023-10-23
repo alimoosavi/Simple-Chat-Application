@@ -5,10 +5,8 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data/
     restart: always
-    environment:
-      POSTGRES_DB: chat-application
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+    env_file:
+      - ./.env
     ports:
       - 5433:5432
 

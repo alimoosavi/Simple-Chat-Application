@@ -1,10 +1,16 @@
 import os
 
-
 DATABASE_HOST = os.environ.get("DATABASE_HOST", "localhost")
 DATABASE_PORT = os.environ.get("DATABASE_PORT", "5433")
 DATABASE_NAME = os.environ.get("DATABASE_NAME", "chat-application")
 DATABASE_USER = os.environ.get("DATABASE_USER", "postgres")
 DATABASE_PASSWORD = os.environ.get("DATABASE_PASSWORD", "postgres")
 
-OPEN_AI_API_KEY = os.environ.get("OPEN_AI_API_KEY", "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")
+OPEN_AI_API_KEY = os.environ.get("OPEN_AI_API_KEY", "PLACE_YOUR_OPEN_AI_KEY")
+
+OPEN_AI_CHAT_CONFIG_MODEL = os.environ.get("OPEN_AI_CHAT_CONFIG_MODEL", "gpt-3.5-turbo")
+OPEN_AI_CHAT_CONFIG_TEMPERATURE = int(os.environ.get("OPEN_AI_CHAT_CONFIG_TEMPERATURE", "0"))
+OPEN_AI_CHAT_CONFIG_TOP_P = int(os.environ.get("OPEN_AI_CHAT_CONFIG_TOP_P", "1"))
+OPEN_AI_CHAT_CONFIG_FREQUENCY_PENALTY = int(os.environ.get("OPEN_AI_CHAT_CONFIG_FREQUENCY_PENALTY", "0"))
+OPEN_AI_CHAT_CONFIG_PRESENCE_PENALTY = int(os.environ.get("OPEN_AI_CHAT_CONFIG_PRESENCE_PENALTY", "0"))
+OPEN_AI_CHAT_CONFIG_MAX_TOKENS = int(os.environ.get("OPEN_AI_CHAT_CONFIG_MAX_TOKENS", "1000"))

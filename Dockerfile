@@ -17,6 +17,5 @@ COPY --from=builder /app /app
 COPY . .
 ENV PATH="/app/.venvDocker/bin:$PATH"
 EXPOSE 8000
-#RUN chmod +x entrypoint.sh
+
 CMD uvicorn main:app --host 0.0.0.0 --port 8000 --reload
-#ENTRYPOINT ["./entrypoint.sh" ]

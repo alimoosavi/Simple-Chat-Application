@@ -1,11 +1,27 @@
-import schemas
+from typing import List
+
 import openai
 from sqlalchemy.orm import Session
-from typing import List
-from configs.constants import OPEN_AI_API_KEY
+
+import schemas
+from configs.constants import (OPEN_AI_API_KEY,
+                               OPEN_AI_CHAT_CONFIG_MODEL,
+                               OPEN_AI_CHAT_CONFIG_TEMPERATURE,
+                               OPEN_AI_CHAT_CONFIG_TOP_P,
+                               OPEN_AI_CHAT_CONFIG_FREQUENCY_PENALTY,
+                               OPEN_AI_CHAT_CONFIG_PRESENCE_PENALTY,
+                               OPEN_AI_CHAT_CONFIG_MAX_TOKENS)
 from database.models import Interaction
 
 openai.api_key = OPEN_AI_API_KEY
+OPEN_AI_CHAT_CONFIG = {
+    'model': OPEN_AI_CHAT_CONFIG_MODEL,
+    'temperature': OPEN_AI_CHAT_CONFIG_TEMPERATURE,
+    'top_p': OPEN_AI_CHAT_CONFIG_TOP_P,
+    'frequency_penalty': OPEN_AI_CHAT_CONFIG_FREQUENCY_PENALTY,
+    'presence_penalty': OPEN_AI_CHAT_CONFIG_PRESENCE_PENALTY,
+    'max_tokens': OPEN_AI_CHAT_CONFIG_MAX_TOKENS
+}
 
 
 def get_session_messages(db: Session, interaction_id: str) -> List[schemas.Message]:
@@ -27,12 +43,7 @@ def generate_ai_response(db: Session, interaction_id: str, content: str) -> str:
         "content": content
     }
     messages = [*previous_messages, user_message]
-    resp = openai.ChatCompletion.create(model="gpt-3.5-turbo",
-                                        messages=messages,
-                                        temperature=0,
-                                        top_p=1,
-                                        frequency_penalty=0,
-                                        presence_penalty=0,
-                                        max_tokens=1000)
+    resp = openai.ChatCompletion.create(messages=messages,
+                                        **OPEN_AI_CHAT_CONFIG)
 
     return resp.get('choices')[0].get('message').get('content')
